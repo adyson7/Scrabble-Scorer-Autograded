@@ -28,8 +28,8 @@ function initialPrompt() {
 
 
 function oldScrabbleScorer(word) {
-	word = word.toUpperCase();
-	let letterPoints = "";
+	word = word.toLowerCase();
+	let letterPoints = 0;
  
 	for (let i = 0; i < word.length; i++) {
  
@@ -46,7 +46,7 @@ function oldScrabbleScorer(word) {
 
 
 function simpleScorer(word) {
-  word = word.toUpperCase();
+  word = word.toLowerCase();
    let score = 0;
 
    for (let i = 0; i < word.length; i++) {
@@ -63,9 +63,9 @@ function simpleScorer(word) {
 function vowelBonusScorer(word) {
    //word = word.toUpperCase();
    let score = 0;
-   let vowels = 'AEIOU';
+   let vowels = 'AEIOU'; //this may need to be an array??
    for (let i = 0; i < word.length; i++) {
-      if(vowels.includes(word[i].toUpperCase())) {
+      if(vowels.includes(word[i].toLowerCase())) {
          score += 3;
       }else {
          score += 1;
@@ -101,7 +101,7 @@ const scoringAlgorithms = [
 // scorerPrompt(word) allows us to pull the user word from the inital prompt
 
 
- function scorerPrompt(word, newPointStructure) {
+ function scorerPrompt(word) {
     let scoringMethod = input.question("Choose a scoring algorithm (0, 1 or 2): ");
       for(let i = 0; i < scoringAlgorithms.length; i++) {
        if (scoringMethod === '0') {
@@ -111,7 +111,7 @@ const scoringAlgorithms = [
          score = scoringAlgorithms[1].scorerFunction(word);
          console.log(`Score for "${word}": ${score}`);
        }else if (scoringMethod === '2') {
-         score = scoringAlgorithms[2].scorerFunction(word, newPointStructure);
+         score = scoringAlgorithms[2].scorerFunction(word);
        }else console.log("Not a valid Algorithm. Please Choose 0, 1 or 2.");
        return;
       }
@@ -128,7 +128,7 @@ const scoringAlgorithms = [
         const letters = oldPointStructure[key];
         
         for (const letter of letters) {
-          scorerObject[letter.toUpperCase()] = Number(key);
+          scorerObject[letter.toLowerCase()] = Number(key);
         }
       }
       
