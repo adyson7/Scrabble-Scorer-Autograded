@@ -61,11 +61,11 @@ function simpleScorer(word) {
 // if/else statement to give +=3 for vowels, =+1 for anything else
 
 function vowelBonusScorer(word) {
-   word = word.toUpperCase();
+   //word = word.toUpperCase();
    let score = 0;
-
+   let vowels = 'AEIOU';
    for (let i = 0; i < word.length; i++) {
-      if('AEIOU'.includes(word[i])) {
+      if(vowels.includes(word[i].toUpperCase())) {
          score += 3;
       }else {
          score += 1;
@@ -118,23 +118,24 @@ const scoringAlgorithms = [
       console.log(`Score for "${word}": ${score}`);
    }
 
-  
-
+   
 
    function transform(oldPointStructure) {
-      const newPointStructure = transform(oldPointStructure);
-      
-      for (const pointValue in oldPointStructure) {
-        const letters = oldPointStructure[pointValue];
+
+      let scorerObject = {};
+
+      for (const key in oldPointStructure) {
+        const letters = oldPointStructure[key];
         
         for (const letter of letters) {
-          newPointStructure[letter.toLowerCase()] = Number(pointValue);
+          scorerObject[letter.toUpperCase()] = Number(key);
         }
       }
       
-      return newPointStructure;
+      return scorerObject;
     }
 
+    let newPointStructure = transform(oldPointStructure);
 
 
 
